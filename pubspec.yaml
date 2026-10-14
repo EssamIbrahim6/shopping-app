@@ -1,0 +1,74 @@
+name: shopping_app
+description: "NTI__graduation__project__G4"
+publish_to: "none"
+
+version: 1.0.0+1
+environment:
+  sdk: ^3.12.2
+
+dependencies: # dart fix --apply + dart format .
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.8
+  flutter_launcher_icons: ^0.14.4
+  google_fonts: ^8.2.0
+  dio: ^5.10.0
+  flutter_bloc: ^9.1.1
+  cached_network_image: ^3.4.1
+  get_it: ^9.2.1
+  injectable: ^3.0.0
+  json_annotation: ^4.12.0
+  flutter_svg: ^2.3.0
+  shimmer: ^3.0.0
+  shared_preferences: ^2.2.0
+  animate_do: ^5.1.0
+  smooth_page_indicator: ^2.0.1
+  lottie: ^3.5.1
+  equatable: ^2.1.0
+  pretty_dio_logger: ^1.4.0
+  carousel_slider: ^5.1.2
+  stream_transform: ^2.1.1
+  image_picker: ^1.2.3
+  bloc: ^9.2.1
+  meta: ^1.18.0
+  flutter_slidable: ^4.0.3
+  toastification: ^3.2.0
+  flutter_secure_storage: ^10.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.15.1 # dart run build_runner build --delete-conflicting-outputs
+  injectable_generator: ^3.1.1
+  json_serializable: ^6.14.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+    - assets/onboarding/
+    - assets/lotties/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-ExtraLight.ttf
+          weight: 100
+        - asset: assets/fonts/Inter-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Inter-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Inter-Black.ttf
+          weight: 900
