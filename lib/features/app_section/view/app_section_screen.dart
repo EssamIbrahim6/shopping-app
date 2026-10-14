@@ -4,6 +4,7 @@ import 'package:shopping_app/core/common/base_state/base_state.dart';
 import 'package:shopping_app/core/constants/app_assets.dart';
 import 'package:shopping_app/core/constants/app_tabs.dart';
 import 'package:shopping_app/core/di/service_locator.dart';
+import 'package:shopping_app/core/theme/app_colors.dart';
 import 'package:shopping_app/features/app_section/view_model/app_section_cubit.dart';
 import 'package:shopping_app/features/cart/domain/entities/cart_entity.dart';
 import 'package:shopping_app/features/cart/presentation/view_model/cart_cubit.dart';
@@ -31,24 +32,25 @@ class AppSectionScreen extends StatelessWidget {
                   index: selectedIndex,
                   children: AppTabs.tabs,
                 ),
-                bottomNavigationBar: BottomNavigationBar(
-                  currentIndex: selectedIndex,
-                  onTap: (index) =>
+                bottomNavigationBar: NavigationBar(
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: (index) =>
                       context.read<AppSectionCubit>().changeTab(index),
-                  items: [
-                    BottomNavigationBarItem(
+                  labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+                  destinations: [
+                    NavigationDestination(
                       icon: ImageIcon(AssetImage(AppAssets.homeIcon)),
                       label: 'Home',
                     ),
-                    BottomNavigationBarItem(
+                    NavigationDestination(
                       icon: _CartIconWithBadge(cartCount: cartCount),
                       label: 'Cart',
                     ),
-                    BottomNavigationBarItem(
+                    NavigationDestination(
                       icon: ImageIcon(AssetImage(AppAssets.favouriteIcon)),
-                      label: 'Favourite',
+                      label: 'Favourites',
                     ),
-                    BottomNavigationBarItem(
+                    NavigationDestination(
                       icon: ImageIcon(AssetImage(AppAssets.accountIcon)),
                       label: 'Account',
                     ),
@@ -76,13 +78,13 @@ class _CartIconWithBadge extends StatelessWidget {
         ImageIcon(AssetImage(AppAssets.cartIcon)),
         if (cartCount > 0)
           Positioned(
-            right: -8,
-            top: -6,
+            right: -9,
+            top: -7,
             child: Container(
-              padding: const EdgeInsets.all(4),
-              constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+              constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
               decoration: const BoxDecoration(
-                color: Colors.red,
+                color: AppColors.accentDark,
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
@@ -90,7 +92,7 @@ class _CartIconWithBadge extends StatelessWidget {
                 cartCount > 99 ? '99+' : '$cartCount',
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 10,
+                  fontSize: 9,
                   fontWeight: FontWeight.bold,
                 ),
               ),

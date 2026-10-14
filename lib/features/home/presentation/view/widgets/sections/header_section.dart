@@ -9,19 +9,28 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
-      padding: AppSpacing.allX2,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.x2,
+        AppSpacing.x2,
+        AppSpacing.x2,
+        AppSpacing.x1,
+      ),
       child: Row(
-        mainAxisAlignment: .spaceBetween,
         children: [
-          Text(
-            AppStrings.homeGreeting,
-            style: Theme.of(context).textTheme.headlineMedium,
+          Expanded(
+            child: Text(
+              AppStrings.homeGreeting,
+              style: theme.textTheme.headlineMedium,
+            ),
           ),
-          IconButton(
+          const SizedBox(width: AppSpacing.x1),
+          IconButton.filledTonal(
+            tooltip: 'Search products',
             onPressed: () =>
                 context.pushNamed(AppRoutes.searchProductsByCategoryRoute),
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
         ],
       ),

@@ -6,7 +6,7 @@ import 'package:shopping_app/features/search/presentation/view/widgets/search_bo
 import 'package:shopping_app/features/search/presentation/view/widgets/search_field.dart';
 import 'package:shopping_app/features/search/presentation/view_model/bloc/search_products_by_category_bloc.dart';
 
-class SearchProductsByCategoryScreen extends StatelessWidget {
+class SearchProductsByCategoryScreen extends StatefulWidget {
   const SearchProductsByCategoryScreen({
     super.key,
     this.category = 'smartphones',
@@ -15,16 +15,30 @@ class SearchProductsByCategoryScreen extends StatelessWidget {
   final String category;
 
   @override
+  State<SearchProductsByCategoryScreen> createState() =>
+      _SearchProductsByCategoryScreenState();
+}
+
+class _SearchProductsByCategoryScreenState
+    extends State<SearchProductsByCategoryScreen> {
+  late final TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final searchController = TextEditingController();
-
-    SearchProductsByCategoryRequestBody body() =>
-        SearchProductsByCategoryRequestBody(
-          search: searchController.text.trim(),
-        );
-
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('Search')),
       body:
           BlocBuilder<
             SearchProductsByCategoryBloc,
@@ -38,10 +52,14 @@ class SearchProductsByCategoryScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SearchField(
-                      controller: searchController,
+                      controller: _searchController,
                       onChanged: (value) {
                         bloc.add(
-                          SearchQueryChanged(body().copyWith(search: value)),
+                          SearchQueryChanged(
+                            SearchProductsByCategoryRequestBody(
+                              search: value.trim(),
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -49,7 +67,13 @@ class SearchProductsByCategoryScreen extends StatelessWidget {
                     verticalSpace(AppSpacing.x2),
 
                     Expanded(
-                      child: SearchBody(state: state, bloc: bloc, body: body),
+                      child: SearchBody(
+                        state: state,
+                        bloc: bloc,
+                        body: () => SearchProductsByCategoryRequestBody(
+                          search: _searchController.text.trim(),
+                        ),
+                      ),
                     ),
                   ],
                 ),

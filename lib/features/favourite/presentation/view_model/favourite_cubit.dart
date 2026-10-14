@@ -35,11 +35,12 @@ class FavouriteCubit extends Cubit<BaseState<List<ProductItemEntity>>> {
       case Success<bool>():
         removeFavouriteItem(productId);
 
-        // Sync the Home cubit's singleton instance
-        serviceLocator<ProductsCubit>().updateFavoriteStatus(
-          productId,
-          false, // removed from favourites
-        );
+        if (serviceLocator.isRegistered<ProductsCubit>()) {
+          serviceLocator<ProductsCubit>().updateFavoriteStatus(
+            productId,
+            false,
+          );
+        }
         if (serviceLocator.isRegistered<CategoryCubit>()) {
           serviceLocator<CategoryCubit>().updateFavoriteStatus(productId, false);
         }

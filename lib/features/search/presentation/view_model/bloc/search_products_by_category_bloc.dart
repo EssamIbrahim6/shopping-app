@@ -76,7 +76,7 @@ class SearchProductsByCategoryBloc
         emit(
           state.copyWith(
             allProducts: newAllProducts,
-            skip: state.skip + 1,
+            skip: newAllProducts.length,
             hasMore: result.data.length >= state.limit,
             searchState: BaseSuccessState<List<ProductItemEntity>>(
               data: newAllProducts,
@@ -120,7 +120,7 @@ class SearchProductsByCategoryBloc
           emit(
             state.copyWith(
               allProducts: newAllProducts,
-              skip: state.skip + 1,
+              skip: state.skip + products.length,
               hasMore: products.length >= state.limit,
               isLoadingMore: false,
               searchState: BaseSuccessState<List<ProductItemEntity>>(

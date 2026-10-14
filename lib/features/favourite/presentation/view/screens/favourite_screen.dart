@@ -7,6 +7,7 @@ import 'package:shopping_app/core/common/widgets/product_card.dart';
 import 'package:shopping_app/core/constants/app_spacing.dart';
 import 'package:shopping_app/core/constants/app_strings.dart';
 import 'package:shopping_app/core/network/result_api.dart';
+import 'package:shopping_app/core/theme/app_style.dart';
 import 'package:shopping_app/features/cart/presentation/view_model/cart_cubit.dart';
 import 'package:shopping_app/features/cart/presentation/view_model/cart_intent.dart';
 import 'package:shopping_app/features/favourite/presentation/view/widgets/favourite_empty.dart';
@@ -29,9 +30,9 @@ class FavouriteScreen extends StatelessWidget {
           const SnackBar(content: Text("Removed from favourites")),
         );
       case Error<bool>():
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(result.messageError)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(result.messageError)));
     }
   }
 
@@ -41,7 +42,10 @@ class FavouriteScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('My Favourite', style: Theme.of(context).textTheme.headlineMedium),
+          title: Text(
+            'My Favourite',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
           centerTitle: true,
         ),
         body: BlocBuilder<FavouriteCubit, BaseState<List<ProductItemEntity>>>(
@@ -54,7 +58,9 @@ class FavouriteScreen extends StatelessWidget {
                   padding: AppSpacing.allX2,
                   child: Text(
                     message,
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 ),
               ),
@@ -65,12 +71,7 @@ class FavouriteScreen extends StatelessWidget {
                 return GridView.builder(
                   padding: AppSpacing.horizontalX2,
                   itemCount: products.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: AppSpacing.x2,
-                    crossAxisSpacing: AppSpacing.x2,
-                    childAspectRatio: 0.52,
-                  ),
+                  gridDelegate: AppStyles.productsGridDelegate,
                   itemBuilder: (_, index) {
                     final product = products[index];
                     return ProductCard(
@@ -79,7 +80,8 @@ class FavouriteScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => ProductDetailsScreen(productId: product.id),
+                            builder: (_) =>
+                                ProductDetailsScreen(productId: product.id),
                           ),
                         );
                       },
@@ -94,9 +96,14 @@ class FavouriteScreen extends StatelessWidget {
                         );
                         ScaffoldMessenger.of(context)
                           ..hideCurrentSnackBar()
-                          ..showSnackBar(const SnackBar(content: Text(AppStrings.addedToCart)));
+                          ..showSnackBar(
+                            const SnackBar(
+                              content: Text(AppStrings.addedToCart),
+                            ),
+                          );
                       },
-                      onFavorite: () => _handleFavouriteTap(context, product.id),
+                      onFavorite: () =>
+                          _handleFavouriteTap(context, product.id),
                     );
                   },
                 );

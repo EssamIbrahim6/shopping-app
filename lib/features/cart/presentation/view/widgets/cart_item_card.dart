@@ -118,7 +118,7 @@ class CartItemCard extends StatelessWidget {
                     horizontal: AppSpacing.x1 / 2,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.oragneLight.withValues(alpha: 0.35),
+                    color: AppColors.primaryLight.withValues(alpha: 0.7),
                     borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
                     border: Border.all(
                       color: AppColors.primary.withValues(alpha: 0.25),

@@ -185,7 +185,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       top: 10,
                       left: 10,
                       child: CircleAvatar(
-                        backgroundColor: Colors.white.withOpacity(0.8),
+                        backgroundColor: AppColors.surface.withValues(
+                          alpha: 0.9,
+                        ),
                         child: IconButton(
                           onPressed: () => Navigator.pop(context),
                           icon: const Icon(
@@ -221,7 +223,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ..showSnackBar(
                             const SnackBar(
                               content: Text(AppStrings.addedToCart),
-                              backgroundColor: Colors.green,
+                              backgroundColor: AppColors.success,
                               duration: Duration(seconds: 2),
                             ),
                           );

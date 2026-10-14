@@ -8,7 +8,6 @@ import 'package:shopping_app/core/constants/app_strings.dart';
 import 'package:shopping_app/core/common/model/product_item/product_item_entity.dart';
 import 'package:shopping_app/core/theme/app_colors.dart';
 import 'package:shopping_app/core/theme/app_style.dart';
-import 'package:shopping_app/core/theme/app_theme.dart';
 import 'package:shopping_app/core/utils/app_methods.dart';
 
 class ProductCard extends StatelessWidget {
@@ -27,21 +26,24 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
         decoration: AppStyles.customCardBoxDecoration,
+        clipBehavior: Clip.antiAlias,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_buildProductImage(), _buildProductDetails()],
+          children: [_buildProductImage(), _buildProductDetails(theme)],
         ),
       ),
     );
   }
 
-  Widget _buildProductDetails() {
+  Widget _buildProductDetails(ThemeData theme) {
+    final hasDiscount = product.discountPercentage > 0;
     return Padding(
-      padding: EdgeInsets.all(AppSpacing.x1),
+      padding: const EdgeInsets.all(AppSpacing.x1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,23 +53,23 @@ class ProductCard extends StatelessWidget {
             children: [
               Text(
                 product.title,
-                style: AppTheme.lightTheme.textTheme.headlineMedium,
+                style: theme.textTheme.titleSmall,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+                maxLines: 2,
               ),
-              verticalSpace(4),
+              verticalSpace(2),
               Row(
                 spacing: 4,
                 children: [
-                  const Icon(Icons.star, color: AppColors.primary, size: 14),
+                  const Icon(Icons.star, color: AppColors.accentDark, size: 14),
                   Text(
                     product.rating.toString(),
-                    style: AppTheme.lightTheme.textTheme.bodySmall,
+                    style: theme.textTheme.bodySmall,
                   ),
                   Expanded(
                     child: Text(
                       "(${product.reviewCount})",
-                      style: AppTheme.lightTheme.textTheme.bodySmall,
+                      style: theme.textTheme.bodySmall,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -81,39 +83,33 @@ class ProductCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   "EGP ${AppMethods.calculateDiscount(product.price, product.discountPercentage).toStringAsFixed(2)}",
-                  style: const TextStyle(
+                  style: theme.textTheme.titleSmall?.copyWith(
                     color: AppColors.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              product.discountPercentage.toDouble() > 0 ||
-                      product.discountPercentage.toDouble() < 0
-                  ? Container(
-                      height: 22,
-                      padding: EdgeInsets.symmetric(horizontal: AppSpacing.x1),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.orange.shade50,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        "-${product.discountPercentage.toStringAsFixed(0)}%",
-                        style: const TextStyle(
-                          color: Colors.orange,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 11,
-                        ),
-                      ),
-                    )
-                  : Container(),
+              if (hasDiscount)
+                Container(
+                  height: 22,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.x1 / 2,
+                  ),
+                  alignment: Alignment.center,
+                  decoration: AppStyles.discountBadgeDecoration,
+                  child: Text(
+                    "-${product.discountPercentage.toStringAsFixed(0)}%",
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: AppColors.accentDark,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
             ],
           ),
-          verticalSpace(8),
-          // Add To Cart Button
+          verticalSpace(AppSpacing.x1 / 2),
           PrimaryBtn(
             onPressed: onAddToCart,
             child: Row(
@@ -122,11 +118,13 @@ class ProductCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     AppStrings.addToCart,
-                    style: AppTheme.lightTheme.textTheme.labelMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.labelLarge,
                   ),
                 ),
                 const Icon(
-                  Icons.add_shopping_cart_sharp,
+                  Icons.add_shopping_cart_outlined,
                   color: AppColors.surface,
                   size: 16,
                 ),
@@ -156,8 +154,8 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 8,
-            right: 8,
+            top: AppSpacing.x1,
+            right: AppSpacing.x1,
             child: FavouriteButton(
               isFavorite: product.isFavorite,
               onTap: onFavorite,

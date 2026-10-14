@@ -59,7 +59,7 @@ class AccountSuccessSection extends StatelessWidget {
                         gradient: const LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
-                          colors: [AppColors.primary, AppColors.primaryLight],
+                          colors: [AppColors.primary, AppColors.primaryDark],
                         ),
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(50),

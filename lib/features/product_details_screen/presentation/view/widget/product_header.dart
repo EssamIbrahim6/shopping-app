@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/core/constants/app_spacing.dart';
 import 'package:shopping_app/core/theme/app_colors.dart';
 import 'package:shopping_app/core/theme/app_style.dart';
-import 'package:shopping_app/core/theme/app_theme.dart';
 import 'package:shopping_app/core/utils/app_methods.dart';
 
 class ProductHeader extends StatelessWidget {
@@ -24,77 +23,62 @@ class ProductHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.x1,
         vertical: AppSpacing.x1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: AppTheme.lightTheme.textTheme.headlineLarge),
-
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Text(title, style: textTheme.headlineLarge),
+          verticalSpace(AppSpacing.x1),
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: AppSpacing.x1,
+            runSpacing: AppSpacing.x1,
             children: [
               Text(
                 'EGP ${AppMethods.calculateDiscount(price, discount).toStringAsFixed(2)}',
-                style: AppTheme.lightTheme.textTheme.titleLarge?.copyWith(
-                  fontSize: 20,
+                style: textTheme.titleLarge?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-
-              horizontalSpace(10),
-
-              Padding(
-                padding: EdgeInsets.only(top: AppSpacing.x1),
-                child: Text(
+              if (discount > 0)
+                Text(
                   'EGP ${price.toStringAsFixed(2)}',
-                  style: AppTheme.lightTheme.textTheme.titleMedium?.copyWith(
-                    color: Colors.grey,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: AppColors.bodyLight,
                     decoration: TextDecoration.lineThrough,
                   ),
                 ),
-              ),
-
-              horizontalSpace(10),
-
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSpacing.x1,
-                  vertical: AppSpacing.x1,
-                ),
-                decoration: AppStyles.customHeaderDecoration.copyWith(
-                  borderRadius: BorderRadius.circular(AppSpacing.x2),
-                ),
-                child: Text(
-                  '-${discount.toStringAsFixed(0)}%',
-                  style: AppTheme.lightTheme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
+              if (discount > 0)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.x1,
+                    vertical: AppSpacing.x1 / 2,
+                  ),
+                  decoration: AppStyles.discountBadgeDecoration,
+                  child: Text(
+                    '-${discount.toStringAsFixed(0)}%',
+                    style: textTheme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.accentDark,
+                    ),
                   ),
                 ),
-              ),
-
-              // const Spacer(),
-              horizontalSpace(30),
             ],
           ),
           Row(
             children: [
-              Icon(Icons.star, color: AppColors.primary, size: 20),
-              horizontalSpace(4),
-              Text(
-                rating.toStringAsFixed(1),
-                style: AppTheme.lightTheme.textTheme.headlineMedium?.copyWith(
-                  fontSize: 14,
-                ),
-              ),
+              const Icon(Icons.star, color: AppColors.accentDark, size: 18),
+              horizontalSpace(AppSpacing.x1 / 2),
+              Text(rating.toStringAsFixed(1), style: textTheme.titleSmall),
+              horizontalSpace(AppSpacing.x1 / 2),
+              Text('($reviewCount reviews)', style: textTheme.bodySmall),
             ],
-          ),
-          Text(
-            '($reviewCount reviews)',
-            style: AppTheme.lightTheme.textTheme.titleMedium,
           ),
         ],
       ),

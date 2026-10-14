@@ -4,165 +4,128 @@ import 'package:shopping_app/core/theme/app_colors.dart';
 
 abstract final class AppStyles {
   static const BoxShadow defaultShadow = BoxShadow(
-    color: Color(0x4DFF9900),
-    offset: Offset(0, 4),
-    blurRadius: 8,
+    color: Color(0x120D0B35),
+    offset: Offset(0, 3),
+    blurRadius: 12,
   );
 
   static const BoxShadow primaryShadow = BoxShadow(
-    color: Color(0x59FF9900),
-    offset: Offset(0, 4),
-    blurRadius: 10,
+    color: Color(0x266C63FF),
+    offset: Offset(0, 5),
+    blurRadius: 14,
   );
 
   static const BoxShadow secondaryShadow = BoxShadow(
-    color: Color(0x59FF9900),
-    offset: Offset(0, 4),
-    blurRadius: 6,
+    color: Color(0x1F6C63FF),
+    offset: Offset(0, 3),
+    blurRadius: 8,
   );
+
   static final ButtonStyle defaultStyle = ElevatedButton.styleFrom();
 
   static final ButtonStyle primaryStyle = ElevatedButton.styleFrom(
     backgroundColor: Colors.transparent,
+    foregroundColor: AppColors.onPrimary,
     shadowColor: Colors.transparent,
     elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+    ),
   );
 
   static final ButtonStyle secondaryStyle = ElevatedButton.styleFrom(
-    backgroundColor: AppColors.onPrimary,
+    backgroundColor: AppColors.surface,
     foregroundColor: AppColors.primary,
     shadowColor: Colors.transparent,
     elevation: 0,
-    side: BorderSide(color: AppColors.primary),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.5)),
+    side: const BorderSide(color: AppColors.border),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+    ),
   );
 
-  static BoxDecoration primaryDecoration = BoxDecoration(
-    gradient: const LinearGradient(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-      colors: [Color(0xFFFF9900), Color(0xFFFFB700)],
-    ),
-    borderRadius: BorderRadius.circular(8),
-    boxShadow: const [AppStyles.primaryShadow],
+  static final BoxDecoration primaryDecoration = BoxDecoration(
+    color: AppColors.primary,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
   );
 
-  static BoxDecoration secondaryDecoration = BoxDecoration(
-    gradient: const LinearGradient(
-      colors: [Color(0xFFFF9900), Color(0xFFFFB700)],
-    ),
-    borderRadius: BorderRadius.circular(12),
-    // boxShadow: const [AppStyles.secondaryShadow],
+  static final BoxDecoration secondaryDecoration = BoxDecoration(
+    color: AppColors.surface,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+    border: Border.all(color: AppColors.border),
   );
 
   static final BoxDecoration productCardDecoration = BoxDecoration(
-    color: AppColors.background,
-    borderRadius: BorderRadius.circular(18),
-    border: Border.all(
-      color: AppColors.background,
-      width: 1.5,
-      style: BorderStyle.solid,
-    ),
-    boxShadow: [kBlackShadowSmall],
+    color: AppColors.surface,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+    border: Border.all(color: AppColors.border),
+    boxShadow: const [defaultShadow],
   );
+
   static const BoxDecoration productImageDecoration = BoxDecoration(
     color: AppColors.background,
     borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
   );
+
   static final BoxDecoration discountBadgeDecoration = BoxDecoration(
-    color: AppColors.oragneLight.withValues(alpha: 0.3),
-    borderRadius: BorderRadius.circular(16),
-  );
-  static const BoxShadow kOrangeShadowSmall = BoxShadow(
-    color: Color(0x4DFF9900),
-    offset: Offset(0, 4),
-    blurRadius: 12,
-    spreadRadius: 0,
+    color: AppColors.accentLight,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
   );
 
-  static const BoxShadow kOrangeShadowMedium = BoxShadow(
-    color: Color(0x59FF9900),
-    offset: Offset(0, 4),
-    blurRadius: 16,
-    spreadRadius: 0,
-  );
+  static const BoxShadow kOrangeShadowSmall = primaryShadow;
+  static const BoxShadow kOrangeShadowMedium = primaryShadow;
+  static const BoxShadow kOrangeShadowLarge = primaryShadow;
 
-  static const BoxShadow kOrangeShadowLarge = BoxShadow(
-    color: Color(0x59FF9900), // 35% opacity
-    offset: Offset(0, 4),
-    blurRadius: 12,
-    spreadRadius: 0,
-  );
-  static BoxShadow kBlackShadowSmall = BoxShadow(
-    color: Colors.black.withValues(alpha: .15),
+  static const BoxShadow kBlackShadowSmall = BoxShadow(
+    color: Color(0x120D0B35),
     blurRadius: 10,
-    offset: const Offset(0, 6),
-  );
-  static BoxDecoration cardDecoration = BoxDecoration(
-    color: AppColors.background,
-    borderRadius: BorderRadius.circular(18),
-    border: Border.all(
-      color: AppColors.background,
-      width: 1.5,
-      style: BorderStyle.solid,
-    ),
-    // boxShadow: const [AppStyles.defaultShadow],
-  );
-  static var productsGridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2,
-    crossAxisSpacing: AppSpacing.x2,
-    mainAxisSpacing: AppSpacing.x2,
-    childAspectRatio: .55,
+    offset: Offset(0, 4),
   );
 
-  static BoxDecoration customCardBoxDecoration = BoxDecoration(
-    color: AppColors.background, // cardBg,
-    borderRadius: BorderRadius.circular(16),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withValues(alpha: 0.06),
-        blurRadius: 10,
-        offset: const Offset(0, 4),
-      ),
-    ],
+  static final BoxDecoration cardDecoration = BoxDecoration(
+    color: AppColors.surface,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+    border: Border.all(color: AppColors.border),
   );
-  static BoxDecoration customImageCardBoxDecoration = BoxDecoration(
-    borderRadius: BorderRadius.circular(12),
-    gradient: const LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [
-        Color(0xFFFFC84A),
-        Color(0xFFFFC84A), // Light golden
-        // Light golden
-        // Color(0xFFF5A623), // Orange
-        // Color(0xFFE88B00), // Dark orange
-      ],
-      stops: [0.0, 0.45, 1.0],
-    ),
+
+  static const SliverGridDelegateWithFixedCrossAxisCount productsGridDelegate =
+      SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: AppSpacing.x2,
+        mainAxisSpacing: AppSpacing.x2,
+        childAspectRatio: 0.68,
+      );
+
+  static final BoxDecoration customCardBoxDecoration = BoxDecoration(
+    color: AppColors.surface,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+    border: Border.all(color: AppColors.border),
+    boxShadow: const [defaultShadow],
   );
-  static BoxDecoration customImageCardBoxDecoration2 = BoxDecoration(
-    borderRadius: BorderRadius.circular(12),
-    gradient: const LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Colors.blue, Colors.purple],
-      stops: [0.0, 0.45, 1.0],
-    ),
+
+  static final BoxDecoration customImageCardBoxDecoration = BoxDecoration(
+    color: AppColors.primaryLight,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
   );
-  static BoxDecoration favInProductDetailsDecoration = const BoxDecoration(
-    color: Colors.white,
+
+  static final BoxDecoration customImageCardBoxDecoration2 = BoxDecoration(
+    color: AppColors.accentLight,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+  );
+
+  static const BoxDecoration favInProductDetailsDecoration = BoxDecoration(
+    color: AppColors.surface,
     shape: BoxShape.circle,
-    boxShadow: [
-      BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
-    ],
+    boxShadow: [defaultShadow],
   );
-  static BoxDecoration decorationImageSlider = BoxDecoration(
-    color: const Color(0xFFF7F7F8),
+
+  static final BoxDecoration decorationImageSlider = BoxDecoration(
+    color: AppColors.background,
     borderRadius: BorderRadius.circular(AppSpacing.x3),
   );
-  static BoxDecoration customHeaderDecoration = BoxDecoration(
-    color: const Color(0xffFFE9E2),
-    borderRadius: BorderRadius.circular(10),
+
+  static final BoxDecoration customHeaderDecoration = BoxDecoration(
+    color: AppColors.accentLight,
+    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
   );
 }

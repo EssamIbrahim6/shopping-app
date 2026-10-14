@@ -60,11 +60,20 @@ class CategoriesSection extends StatelessWidget {
           final category = categories[index];
           return OutlinedButton(
             style: OutlinedButton.styleFrom(
-              minimumSize: Size.zero,
-              padding: AppSpacing.horizontalVerticalX2,
+              backgroundColor: AppColors.surface,
+              minimumSize: const Size(48, 40),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.x2,
+                vertical: AppSpacing.x1 / 2,
+              ),
+              side: const BorderSide(color: AppColors.border),
             ),
             onPressed: () => onCategoryTap(category.name, category.slug),
-            child: Text(category.name),
+            child: Text(
+              category.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           );
         },
       ),
